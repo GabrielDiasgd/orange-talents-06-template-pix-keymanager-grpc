@@ -1,0 +1,12 @@
+micronaut:
+  application:
+    name: gabriel
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/pix?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: dias250598
+    schema-generate: CREATE_DROP
+    dialect: MYSQL
+jpa.default.properties.hibernate.hbm2ddl.auto: update

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.zupacademy";
+option java_outer_classname = "Gabriel";
+option objc_class_prefix = "HLW";
+
+package br.com.zupacademy;
+
+service GabrielService {
+  rpc send (GabrielRequest) returns (GabrielReply) {}
+}
+
+message GabrielRequest {
+  string name = 1;
+}
+
+message GabrielReply {
+  string message = 1;
+}
