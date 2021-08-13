@@ -3,10 +3,17 @@ micronaut:
     name: gabriel
 datasources:
   default:
-    url: jdbc:mysql://localhost:3306/pix?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/pix?useTimezone=true&serverTimezone=UTC
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: dias250598
     schema-generate: CREATE_DROP
     dialect: MYSQL
+
 jpa.default.properties.hibernate.hbm2ddl.auto: update
+jpa.default.properties.hibernate.show_sql: true
+jpa.default.properties.hibernate.format_sql: true
+
+client:
+  http:
+    itau: http://localhost:9091/api/v1/clientes
