@@ -19,13 +19,13 @@ class DeletePixKeyEndpoint(@Inject val deleteKeyService: DeleteKeyService) :
             deleteKeyService.delete(request.pixId, request.clientId)
         } catch (ex: IllegalStateException) {
             responseObserver.onError(
-                Status.INVALID_ARGUMENT
+                Status.NOT_FOUND
                     .withDescription(ex.message)
                     .asRuntimeException()
             )
         } catch (ex: ConstraintViolationException) {
             responseObserver.onError(
-                Status.NOT_FOUND
+                Status.INVALID_ARGUMENT
                     .withDescription(ex.message)
                     .asRuntimeException()
             )

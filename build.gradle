@@ -73,7 +73,6 @@ tasks {
             jvmTarget = "11"
         }
     }
-
     test {
         useJUnitPlatform()
     }

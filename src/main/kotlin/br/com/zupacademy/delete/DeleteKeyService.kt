@@ -17,10 +17,10 @@ class DeleteKeyService(@Inject val keyPixRepository: KeyPixRepository) {
     @Transactional
     fun delete(@NotBlank pixId: String, @NotBlank clientId: String) {
         val keyPix = keyPixRepository.findById(pixId)
-        keyPix.orElseThrow {throw  IllegalStateException("chave não encontrada")}
+        keyPix.orElseThrow {throw  IllegalStateException("Chave pix não encontrada")}
 
         keyPix.get().belongsClient(clientId).run {
-            if (!this) throw IllegalStateException("chave não pertence ao cliente")
+            if (!this) throw IllegalStateException("Chave pix não pertence ao cliente")
         }
         keyPixRepository.deleteById(keyPix.get().pixId)
     }

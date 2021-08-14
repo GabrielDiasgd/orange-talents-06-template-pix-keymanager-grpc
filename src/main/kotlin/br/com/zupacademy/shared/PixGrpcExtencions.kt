@@ -1,6 +1,5 @@
 package br.com.zupacademy
 
-import br.com.zupacademy.delete.DeleteKeyRequest
 import br.com.zupacademy.register.Account
 import br.com.zupacademy.register.KeyType
 import br.com.zupacademy.register.NewKeyPix
@@ -12,8 +11,4 @@ fun PixKeyRegistrationRequest.toModel(): NewKeyPix {
         keyValue,
         if (account.equals(AccountType.UNKNOWN_ACCOUNT))null else Account.valueOf(account.name)
     )
-}
-
-fun PixKeyDeleteRequest.toModel(): DeleteKeyRequest {
-    return DeleteKeyRequest(pixId, clientId)
 }
