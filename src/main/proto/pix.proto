@@ -6,16 +6,12 @@ option java_outer_classname = "KeyManagerServiceOuterClass";
 
 package br.com.zupacademy;
 
-service KeyManagerService {
-  rpc keyRegistration (PixKeyRegistrationRequest) returns (PixKeyRegistrationResponse) {}
+service KeyManagerRegisterService {
+  rpc register (PixKeyRegistrationRequest) returns (PixKeyRegistrationResponse) {}
 }
 
-message  PixKeyRegistrationRequest {
-  string clientId = 1;
-  KeyTypeRequest keyType = 2;
-  string keyValue = 3;
-  AccountType account = 4;
-
+service KeyManagerDeleteService {
+  rpc delete (PixKeyDeleteRequest) returns (PixKeyDeleteResponse){}
 }
 
 enum AccountType {
@@ -32,7 +28,24 @@ enum KeyTypeRequest {
   RANDOM = 4;
 }
 
+//Register
+message  PixKeyRegistrationRequest {
+  string clientId = 1;
+  KeyTypeRequest keyType = 2;
+  string keyValue = 3;
+  AccountType account = 4;
+}
 message PixKeyRegistrationResponse {
   string pixId = 1;
   string clientId = 2;
+}
+
+//delete
+message PixKeyDeleteRequest {
+  string pixId = 1;
+  string clientId = 2;
+}
+
+message PixKeyDeleteResponse {
+  string response = 1;
 }

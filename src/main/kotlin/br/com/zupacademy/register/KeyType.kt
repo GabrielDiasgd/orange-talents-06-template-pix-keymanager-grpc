@@ -1,6 +1,7 @@
 package br.com.zupacademy.register
 
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator
 
 enum class KeyType {
 
@@ -9,7 +10,13 @@ enum class KeyType {
             if (keyValue.isNullOrBlank()) {
                 return false
             }
-           return keyValue.matches("^[0-9]{11}\$".toRegex())
+            if (!keyValue.matches("[0-9]{11}".toRegex())) {
+                return false
+            }
+            return CPFValidator().run {
+                initialize(null)
+                isValid(keyValue, null)
+            }
         }
     }, PHONE {
         override fun validator(keyValue: String?): Boolean {
@@ -27,6 +34,7 @@ enum class KeyType {
                 initialize(null)
                 isValid(keyValue, null)
             }
+
         }
     }, RANDOM {
         override fun validator(keyValue: String?) = keyValue.isNullOrBlank()

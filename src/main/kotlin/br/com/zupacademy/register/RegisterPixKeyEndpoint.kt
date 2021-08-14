@@ -10,7 +10,7 @@ import javax.inject.Singleton
 import javax.validation.ConstraintViolationException
 
 @Singleton
-class KeyPixGrpcServer(@Inject private val service: RegisterPixKeyService) : KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceImplBase(){
+class RegisterPixKeyEndpoint(@Inject private val service: RegisterPixKeyService) : KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceImplBase(){
 
     override fun register(
         request: PixKeyRegistrationRequest,

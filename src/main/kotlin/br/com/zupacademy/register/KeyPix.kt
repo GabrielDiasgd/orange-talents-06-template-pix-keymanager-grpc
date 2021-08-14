@@ -38,5 +38,8 @@ class KeyPix(
         return "KeyPix(clientId='$clientId', KeyType=$type, keyValue='$keyValue', agencyAccount='$agencyAccount', cpfOwnerAccount='$cpfOwnerAccount', accountInstitution='$accountInstitution', nameOwnerAccount='$nameOwnerAccount', accountNumber='$accountNumber', typeAccount=$typeAccount, pixId='$pixId', createdIn=$createdIn)"
     }
 
+    fun belongsClient(clientId: String): Boolean {
+        return this.clientId == clientId
+    }
 
 }
