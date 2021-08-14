@@ -1,7 +1,7 @@
 package br.com.zupacademy.register
 
 import br.com.zupacademy.*
-import br.com.zupacademy.shared.exceptions.KeyPixNotFoundException
+import br.com.zupacademy.shared.exceptions.ExistingPixKeyException
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import java.lang.IllegalStateException
@@ -10,9 +10,9 @@ import javax.inject.Singleton
 import javax.validation.ConstraintViolationException
 
 @Singleton
-class KeyPixGrpcServer(@Inject private val service: RegisterPixKeyService) : KeyManagerServiceGrpc.KeyManagerServiceImplBase() {
+class KeyPixGrpcServer(@Inject private val service: RegisterPixKeyService) : KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceImplBase(){
 
-    override fun keyRegistration(
+    override fun register(
         request: PixKeyRegistrationRequest,
         responseObserver: StreamObserver<PixKeyRegistrationResponse>
     ) {
@@ -31,7 +31,7 @@ class KeyPixGrpcServer(@Inject private val service: RegisterPixKeyService) : Key
                 .withDescription(ex.message)
                 .asRuntimeException())
             return
-        } catch (ex: KeyPixNotFoundException) {
+        } catch (ex: ExistingPixKeyException) {
             responseObserver.onError(Status.ALREADY_EXISTS
                 .withDescription(ex.message)
                 .asRuntimeException())
