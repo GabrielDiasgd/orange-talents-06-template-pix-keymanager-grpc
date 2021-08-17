@@ -29,17 +29,29 @@ class KeyPix(
     val typeAccount: Account
 
 ) {
-
     @Id
-    val pixId: String = UUID.randomUUID().toString()
+    var pixId: String = UUID.randomUUID().toString()
     @Column(nullable = false)
     val createdIn: LocalDateTime = LocalDateTime.now()
-    override fun toString(): String {
-        return "KeyPix(clientId='$clientId', KeyType=$type, keyValue='$keyValue', agencyAccount='$agencyAccount', cpfOwnerAccount='$cpfOwnerAccount', accountInstitution='$accountInstitution', nameOwnerAccount='$nameOwnerAccount', accountNumber='$accountNumber', typeAccount=$typeAccount, pixId='$pixId', createdIn=$createdIn)"
+
+    private constructor(key: KeyPix, keyValue: String) : this(key.clientId, key.type, keyValue, key.agencyAccount,
+        key.cpfOwnerAccount, key.accountInstitution, key.nameOwnerAccount, key.accountNumber, key.typeAccount){
+        this.pixId = key.pixId
+    }
+    companion object {
+        const val ITAU_BANCO_ISPB = "60701190"
     }
 
     fun belongsClient(clientId: String): Boolean {
         return this.clientId == clientId
+    }
+
+    fun updateKey(key: String): KeyPix = KeyPix(this, key)
+
+    override fun toString(): String {
+        return "KeyPix(clientId='$clientId', KeyType=$type, keyValue='$keyValue', agencyAccount='$agencyAccount', " +
+                "cpfOwnerAccount='$cpfOwnerAccount', accountInstitution='$accountInstitution', nameOwnerAccount='$nameOwnerAccount', " +
+                "accountNumber='$accountNumber', typeAccount=$typeAccount, pixId='$pixId', createdIn=$createdIn)"
     }
 
 }

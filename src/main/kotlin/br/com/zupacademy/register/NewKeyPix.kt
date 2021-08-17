@@ -1,6 +1,6 @@
 package br.com.zupacademy.register
 
-import br.com.zupacademy.integration.responses.AccountResponse
+import br.com.zupacademy.integration.itau.responses.AccountResponse
 import br.com.zupacademy.shared.validations.ValidPixKey
 import io.micronaut.core.annotation.Introspected
 import java.util.*

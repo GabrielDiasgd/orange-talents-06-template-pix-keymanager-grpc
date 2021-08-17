@@ -1,12 +1,11 @@
-package br.com.zupacademy.integration.responses
+package br.com.zupacademy.integration.itau.responses
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
 
 @Introspected
-data class OwnerAccount(
-    val id: String,
+data class InstitutionResponse(
     @field:JsonProperty("nome")
     val name: String,
-    val cpf: String
+    val ispb: String
 )

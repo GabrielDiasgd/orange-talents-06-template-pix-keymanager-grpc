@@ -1,4 +1,4 @@
-package br.com.zupacademy.integration.responses
+package br.com.zupacademy.integration.itau.responses
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected

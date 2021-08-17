@@ -16,8 +16,9 @@ service KeyManagerDeleteService {
 
 enum AccountType {
   UNKNOWN_ACCOUNT = 0;
-  CONTA_POUPANCA = 1;
-  CONTA_CORRENTE = 2;
+  CONTA_CORRENTE = 1;
+  CONTA_POUPANCA = 2;
+
 }
 
 enum KeyTypeRequest {

@@ -17,3 +17,7 @@ jpa.default.properties.hibernate.format_sql: true
 client:
   http:
     itau: http://localhost:9091/api/v1/clientes
+    bcb: http://localhost:8082/api/v1/pix/keys
+
+
+

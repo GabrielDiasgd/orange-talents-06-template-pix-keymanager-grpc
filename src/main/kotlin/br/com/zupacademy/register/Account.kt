@@ -1,6 +1,6 @@
 package br.com.zupacademy.register
 
 enum class Account {
-    CONTA_POUPANCA, CONTA_CORRENTE;
+    CONTA_CORRENTE, CONTA_POUPANCA;
 
 }

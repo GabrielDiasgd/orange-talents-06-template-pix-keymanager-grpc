@@ -1,10 +1,10 @@
 package br.com.zupacademy.register
 
 import br.com.zupacademy.*
-import br.com.zupacademy.integration.ClientsAccountsItauClient
-import br.com.zupacademy.integration.responses.AccountResponse
-import br.com.zupacademy.integration.responses.InstitutionResponse
-import br.com.zupacademy.integration.responses.OwnerAccount
+import br.com.zupacademy.integration.itau.ItauClient
+import br.com.zupacademy.integration.itau.responses.AccountResponse
+import br.com.zupacademy.integration.itau.responses.InstitutionResponse
+import br.com.zupacademy.integration.itau.responses.OwnerAccount
 import io.grpc.ManagedChannel
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
@@ -37,7 +37,7 @@ internal class KeyPixRegistrationTest(
      */
 
     @field:Inject
-    lateinit var itauClient: ClientsAccountsItauClient
+    lateinit var itauClient: ItauClient
 
     @BeforeEach
     fun setup() {
@@ -142,9 +142,9 @@ internal class KeyPixRegistrationTest(
 
 
 
-    @MockBean(ClientsAccountsItauClient::class)
-    fun accountClientMock(): ClientsAccountsItauClient? {
-        return Mockito.mock(ClientsAccountsItauClient::class.java)
+    @MockBean(ItauClient::class)
+    fun accountClientMock(): ItauClient? {
+        return Mockito.mock(ItauClient::class.java)
     }
 }
 
