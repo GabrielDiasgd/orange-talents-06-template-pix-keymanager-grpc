@@ -2,9 +2,9 @@ package br.com.zupacademy.register
 
 import br.com.zupacademy.*
 import br.com.zupacademy.shared.exceptions.ExistingPixKeyException
+import br.com.zupacademy.shared.toModel
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
-import io.micronaut.http.client.exceptions.HttpClientException
 import java.lang.IllegalStateException
 import javax.inject.Inject
 import javax.inject.Singleton

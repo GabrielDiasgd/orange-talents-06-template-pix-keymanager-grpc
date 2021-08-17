@@ -1,5 +1,8 @@
-package br.com.zupacademy
+package br.com.zupacademy.shared
 
+import br.com.zupacademy.AccountType
+import br.com.zupacademy.KeyTypeRequest
+import br.com.zupacademy.PixKeyRegistrationRequest
 import br.com.zupacademy.register.Account
 import br.com.zupacademy.register.KeyType
 import br.com.zupacademy.register.NewKeyPix

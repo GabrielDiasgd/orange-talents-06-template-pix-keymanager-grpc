@@ -9,7 +9,12 @@ data class BcbRegisterKeyResponse (
     val owner: BcbOwnerResponse,
     val createdAt: LocalDateTime
     )
-{}
+{
+    override fun toString(): String {
+        return "BcbRegisterKeyResponse(keyType='$keyType', key='$key', bankAccount=$bankAccount, owner=$owner, createdAt=$createdAt)"
+    }
+
+}
 
 
 class BcbBankAccountResponse(

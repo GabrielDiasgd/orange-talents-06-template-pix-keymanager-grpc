@@ -24,7 +24,9 @@ class DeleteKeyService(@Inject val keyPixRepository: KeyPixRepository, @Inject v
         }
         keyPixRepository.deleteById(keyPix.get().pixId)
 
-        val bcbResponse = bcbClient.deleteKeyBcb(keyPix.get().keyValue, BcbDeleteKeyRequest(keyPix.get().keyValue))
+        val bcbRequest = BcbDeleteKeyRequest(keyPix.get().keyValue)
+        println("bcbRequest Productio: ${bcbRequest.hashCode()}")
+        val bcbResponse = bcbClient.deleteKeyBcb(keyPix.get().keyValue,bcbRequest )
         if (bcbResponse.status != HttpStatus.OK) throw IllegalStateException("Não foi possível excluir a chave no Banco Central")
 
     }
