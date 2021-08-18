@@ -6,12 +6,20 @@ option java_outer_classname = "KeyManagerServiceOuterClass";
 
 package br.com.zupacademy;
 
+import "google/protobuf/timestamp.proto";
+
+
+
 service KeyManagerRegisterService {
   rpc register (PixKeyRegistrationRequest) returns (PixKeyRegistrationResponse) {}
 }
 
 service KeyManagerDeleteService {
   rpc delete (PixKeyDeleteRequest) returns (PixKeyDeleteResponse){}
+}
+
+service KeyManagerFindService {
+  rpc findKey (FindPixKeyRequest) returns (FindPixKeyResponse) {}
 }
 
 enum AccountType {
@@ -49,4 +57,36 @@ message PixKeyDeleteRequest {
 
 message PixKeyDeleteResponse {
   string response = 1;
+}
+
+//find
+message FindPixKeyRequest {
+  message FilterByPixId{
+    string pixId = 1;
+    string clientId = 2;
+  }
+
+  oneof filter {
+    FilterByPixId pixId = 1;
+    string key = 2;
+  }
+
+}
+message FindPixKeyResponse {
+  string pixId = 1;
+  string clientId = 2;
+  KeyTypeRequest typeKey = 3;
+  string keyValue = 4;
+  string name = 5;
+  string cpf = 6 ;
+  AccountResponse account = 7;
+  google.protobuf.Timestamp createdIn = 8;
+
+}
+
+message AccountResponse {
+  string nameInstitution = 1;
+  string agency = 2;
+  string number = 3;
+  AccountType type = 4;
 }

@@ -1,5 +1,6 @@
 package br.com.zupacademy.register
 
+import br.com.zupacademy.find.Filter
 import br.com.zupacademy.integration.bcb.*
 import br.com.zupacademy.integration.bcb.register.BCBRegisterKeyRequest
 import br.com.zupacademy.integration.itau.ItauClient
@@ -25,7 +26,7 @@ class RegisterPixKeyService(
 
         println(newKeyPix)
 
-        if (keyPixRepository.existsByKeyValue(newKeyPix.keyValue!!)) {
+        if (keyPixRepository.existsByKeyValue(newKeyPix.keyValue)) {
             throw ExistingPixKeyException("Já existe uma chave ${newKeyPix.keyValue} cadastrada")
         }
         val response = itauClient.findClient(newKeyPix.clientId, newKeyPix.account!!.name)

@@ -1,11 +1,15 @@
 package br.com.zupacademy.shared
 
 import br.com.zupacademy.AccountType
+import br.com.zupacademy.FindPixKeyRequest
 import br.com.zupacademy.KeyTypeRequest
 import br.com.zupacademy.PixKeyRegistrationRequest
+import br.com.zupacademy.find.Filter
 import br.com.zupacademy.register.Account
 import br.com.zupacademy.register.KeyType
 import br.com.zupacademy.register.NewKeyPix
+import io.micronaut.validation.validator.Validator
+import javax.validation.ConstraintViolationException
 
 fun PixKeyRegistrationRequest.toModel(): NewKeyPix {
     return NewKeyPix(
@@ -14,4 +18,20 @@ fun PixKeyRegistrationRequest.toModel(): NewKeyPix {
         keyValue,
         if (account.equals(AccountType.UNKNOWN_ACCOUNT))null else Account.valueOf(account.name)
     )
+}
+
+fun FindPixKeyRequest.toModel(validator: Validator): Filter {
+
+    val filter = when (filterCase) {
+        FindPixKeyRequest.FilterCase.PIXID -> pixId.let {
+           Filter.ByPixId(it.pixId.toString(), it.clientId)}
+        FindPixKeyRequest.FilterCase.KEY -> Filter.ByKey(key)
+        FindPixKeyRequest.FilterCase.FILTER_NOT_SET -> Filter.Invalid()
+    }
+
+    val violations = validator.validate(filter)
+    if (violations.isNotEmpty()){
+        throw ConstraintViolationException(violations)
+    }
+    return filter
 }
