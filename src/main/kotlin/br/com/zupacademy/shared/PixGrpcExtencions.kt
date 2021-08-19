@@ -24,7 +24,7 @@ fun FindPixKeyRequest.toModel(validator: Validator): Filter {
 
     val filter = when (filterCase) {
         FindPixKeyRequest.FilterCase.PIXID -> pixId.let {
-           Filter.ByPixId(it.pixId.toString(), it.clientId)}
+           Filter.ByPixId(it.pixId, it.clientId)}
         FindPixKeyRequest.FilterCase.KEY -> Filter.ByKey(key)
         FindPixKeyRequest.FilterCase.FILTER_NOT_SET -> Filter.Invalid()
     }

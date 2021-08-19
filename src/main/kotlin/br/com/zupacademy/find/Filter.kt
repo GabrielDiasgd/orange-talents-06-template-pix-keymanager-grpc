@@ -8,7 +8,6 @@ import io.micronaut.http.HttpStatus
 import org.slf4j.LoggerFactory
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
-
 @Introspected
 sealed class Filter {
 
@@ -24,7 +23,7 @@ data class ByPixId(
         return repository.findById(pixId)
             .filter { it.belongsClient(clientId) }
             .map(PixKeyDetails::of)
-            .orElseThrow { PixKeyNotFoundException("Chave pix não encontrada") }
+            .orElseThrow { PixKeyNotFoundException("Chave pix não encontrada ou não pertence ao cliente") }
     }
 }
 

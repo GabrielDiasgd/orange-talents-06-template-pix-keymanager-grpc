@@ -11,7 +11,7 @@ import io.micronaut.http.client.annotation.Client
 interface BcbClient {
 
     @Get(value = "/{key}", consumes = [MediaType.APPLICATION_XML] )
-    fun findByKeyBcb(@PathVariable key: String):HttpResponse<BcbRegisterKeyResponse>
+    fun findByKeyBcb(@PathVariable key: String):HttpResponse<PixKeyDetailsResponse>
 
     @Post(produces = [MediaType.APPLICATION_XML], consumes = [MediaType.APPLICATION_XML])
     fun registerKeyBcb(@Body bcbRegisterKeyRequest: BCBRegisterKeyRequest): HttpResponse<BcbRegisterKeyResponse>

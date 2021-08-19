@@ -11,8 +11,8 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 class PixKeyDetails(
-    val pixId: String? = "",
-    val clientId: String? = "",
+    val pixId: String? = null,
+    val clientId: String? = null,
     val keyType: KeyType,
     val keyValue: String,
     val agencyAccount: String,
@@ -23,7 +23,6 @@ class PixKeyDetails(
     val typeAccount: Account,
     val createdIn: LocalDateTime
 ) {
-
 
     companion object {
         fun of (keyPix: KeyPix): PixKeyDetails {

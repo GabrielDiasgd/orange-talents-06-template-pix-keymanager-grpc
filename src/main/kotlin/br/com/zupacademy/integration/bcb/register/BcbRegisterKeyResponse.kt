@@ -16,26 +16,7 @@ data class BcbRegisterKeyResponse (
         return "BcbRegisterKeyResponse(keyType='$keyType', key='$key', bankAccount=$bankAccount, owner=$owner, createdAt=$createdAt)"
     }
 
-    fun toPixKeyDetails(): PixKeyDetails {
-        return PixKeyDetails(
-            "",
-            "",
-            KeyType.valueOf(keyType),
-            key,
-            bankAccount.branch,
-            owner.taxIdNumber,
-            bankAccount.participant,
-            owner.name,
-            bankAccount.accountNumber,
-            when (bankAccount.accountType) {
-                "CACC" -> Account.CONTA_CORRENTE
-                else -> Account.CONTA_POUPANCA
-            },
-            createdAt
-        )
-    }
 }
-
     class BcbBankAccountResponse(
         val participant: String,
         val branch: String,
