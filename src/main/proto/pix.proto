@@ -22,6 +22,10 @@ service KeyManagerFindService {
   rpc findKey (FindPixKeyRequest) returns (FindPixKeyResponse) {}
 }
 
+service KeyManagerListService {
+  rpc listKeys (ListPixKeyRequest) returns (ListPixKeyResponse) {}
+}
+
 enum AccountType {
   UNKNOWN_ACCOUNT = 0;
   CONTA_CORRENTE = 1;
@@ -89,4 +93,23 @@ message AccountResponse {
   string agency = 2;
   string number = 3;
   AccountType type = 4;
+}
+
+//list
+message ListPixKeyRequest {
+  string clientId = 1;
+}
+
+message ListPixKeyResponse {
+
+  message ListPixKeyDetails{
+    string pixId = 1;
+    string clientId = 2;
+    KeyTypeRequest keyType = 3;
+    string KeyValue = 4;
+    AccountType type = 5;
+    google.protobuf.Timestamp createdIn = 6;
+  }
+
+  repeated ListPixKeyDetails listPixKey = 1;
 }

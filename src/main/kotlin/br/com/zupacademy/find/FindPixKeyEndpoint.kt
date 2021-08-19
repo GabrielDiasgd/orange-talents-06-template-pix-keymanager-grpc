@@ -8,12 +8,11 @@ import br.com.zupacademy.shared.toModel
 import com.google.protobuf.Timestamp
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
-import io.micronaut.validation.validator.Validator
-import java.lang.IllegalStateException
 import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.validation.ConstraintViolationException
+import javax.validation.Validator
 
 @Singleton
 class FindPixKeyEndpoint(

@@ -8,8 +8,8 @@ import br.com.zupacademy.find.Filter
 import br.com.zupacademy.register.Account
 import br.com.zupacademy.register.KeyType
 import br.com.zupacademy.register.NewKeyPix
-import io.micronaut.validation.validator.Validator
 import javax.validation.ConstraintViolationException
+import javax.validation.Validator
 
 fun PixKeyRegistrationRequest.toModel(): NewKeyPix {
     return NewKeyPix(

@@ -1,5 +1,8 @@
 package br.com.zupacademy.register
 
+import br.com.zupacademy.AccountType
+import br.com.zupacademy.KeyTypeRequest
+import br.com.zupacademy.ListPixKeyResponse
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
@@ -52,6 +55,16 @@ class KeyPix(
         return "KeyPix(clientId='$clientId', KeyType=$type, keyValue='$keyValue', agencyAccount='$agencyAccount', " +
                 "cpfOwnerAccount='$cpfOwnerAccount', accountInstitution='$accountInstitution', nameOwnerAccount='$nameOwnerAccount', " +
                 "accountNumber='$accountNumber', typeAccount=$typeAccount, pixId='$pixId', createdIn=$createdIn)"
+    }
+
+    fun toListPixKeyResponse(): ListPixKeyResponse.ListPixKeyDetails? {
+        return ListPixKeyResponse.ListPixKeyDetails.newBuilder()
+                    .setPixId(this.pixId)
+                    .setClientId(this.clientId)
+                    .setKeyType(KeyTypeRequest.valueOf(this.type.name))
+                    .setKeyValue(this.keyValue)
+                    .setType(AccountType.valueOf(this.typeAccount.name))
+                    .build()
     }
 
 }
