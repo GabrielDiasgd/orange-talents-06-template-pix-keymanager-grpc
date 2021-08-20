@@ -3,28 +3,26 @@ package br.com.zupacademy.find
 import br.com.zupacademy.*
 import br.com.zupacademy.integration.bcb.BcbClient
 import br.com.zupacademy.register.KeyPixRepository
-import br.com.zupacademy.shared.exceptions.PixKeyNotFoundException
+import br.com.zupacademy.shared.exceptionHandler.ErrorHandler
 import br.com.zupacademy.shared.toModel
 import com.google.protobuf.Timestamp
-import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.validation.ConstraintViolationException
 import javax.validation.Validator
 
 @Singleton
-class FindPixKeyEndpoint(
+open class FindPixKeyEndpoint(
     @Inject val keyPixRepository: KeyPixRepository,
     @Inject val bcbClient: BcbClient,
     @Inject val validator: Validator
 ) :
     KeyManagerFindServiceGrpc.KeyManagerFindServiceImplBase() {
 
+    @ErrorHandler
     override fun findKey(request: FindPixKeyRequest, responseObserver: StreamObserver<FindPixKeyResponse>?) {
 
-        try {
             val filter = request.toModel(validator)
             val pixKeyDetails = filter.filtrate(keyPixRepository, bcbClient)
             responseObserver?.onNext(
@@ -51,12 +49,6 @@ class FindPixKeyEndpoint(
                     })
                     .build())
             responseObserver?.onCompleted()
-        } catch (ex: Exception) {
-            when(ex) {
-                is IllegalStateException -> responseObserver?.onError(Status.INVALID_ARGUMENT.withDescription(ex.message).asRuntimeException())
-                is ConstraintViolationException -> responseObserver?.onError(Status.INVALID_ARGUMENT.withDescription(ex.message).asRuntimeException())
-                is PixKeyNotFoundException -> responseObserver?.onError(Status.NOT_FOUND.withDescription(ex.message).asRuntimeException())
-            }
-        }
+
     }
 }

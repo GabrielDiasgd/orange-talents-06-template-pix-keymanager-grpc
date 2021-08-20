@@ -141,7 +141,7 @@ internal class FindPixKeyEndpointTest(
         }
 
         with(error) {
-            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
+            assertEquals(Status.FAILED_PRECONDITION.code, status.code)
             assertEquals("Chave Pix inválida ou não informada", status.description)
         }
     }

@@ -3,6 +3,7 @@ package br.com.zupacademy.delete
 import br.com.zupacademy.integration.bcb.BcbClient
 import br.com.zupacademy.integration.bcb.BcbDeleteKeyRequest
 import br.com.zupacademy.register.KeyPixRepository
+import br.com.zupacademy.shared.exceptions.PixKeyNotFoundException
 import io.micronaut.http.HttpStatus
 import io.micronaut.validation.Validated
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class DeleteKeyService(@Inject val keyPixRepository: KeyPixRepository, @Inject v
     @Transactional
     fun delete(@NotBlank pixId: String, @NotBlank clientId: String) {
         val keyPix = keyPixRepository.findById(pixId)
-        keyPix.orElseThrow {throw  IllegalStateException("Chave pix não encontrada")}
+        keyPix.orElseThrow {throw  PixKeyNotFoundException("Chave pix não encontrada")}
 
         keyPix.get().belongsClient(clientId).run {
             if (!this) throw IllegalStateException("Chave pix não pertence ao cliente")

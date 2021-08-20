@@ -24,8 +24,6 @@ class RegisterPixKeyService(
     @Transactional
     fun register(@Valid newKeyPix: NewKeyPix): KeyPix {
 
-        println(newKeyPix)
-
         if (keyPixRepository.existsByKeyValue(newKeyPix.keyValue)) {
             throw ExistingPixKeyException("Já existe uma chave ${newKeyPix.keyValue} cadastrada")
         }

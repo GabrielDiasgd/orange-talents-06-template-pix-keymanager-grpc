@@ -130,7 +130,7 @@ internal class KeyPixRegistrationTest(
         }
         //validação
         with(error) {
-            assertEquals(Status.INVALID_ARGUMENT.code, status.code)
+            assertEquals(Status.FAILED_PRECONDITION.code, status.code)
             assertEquals("Conta inexistente", status.description)
             assertEquals(0, keyPixRepository.count())
         }
@@ -141,16 +141,15 @@ internal class KeyPixRegistrationTest(
         val request = createRequestGrpc()
         val accountResponse = createAccountResponseItau()
         val keyPix = createKeyPix()
-        val bcbResponse = createBcbResponse()
         Mockito.`when`(itauClient.findClient(request.clientId, request.account.name)).thenReturn(HttpResponse.ok(accountResponse))
 
         Mockito.`when`(bcbClient.registerKeyBcb(BCBRegisterKeyRequest(keyPix))).thenReturn(HttpResponse.badRequest())
         //ação
         val error = assertThrows<StatusRuntimeException> {
-            val response = clientGrpc.register(request)
+            clientGrpc.register(request)
         }
         //validação
-        assertEquals(Status.INVALID_ARGUMENT.code, error.status.code)
+        assertEquals(Status.FAILED_PRECONDITION.code, error.status.code)
         assertEquals("Erro na criação da chave no banco central", error.status.description)
         assertEquals(0, keyPixRepository.count())
 

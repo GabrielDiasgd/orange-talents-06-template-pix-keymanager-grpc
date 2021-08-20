@@ -82,7 +82,7 @@ class KeyPixDeleteTest(
         }
         //validação
         assertEquals("Chave pix não pertence ao cliente", error.status.description)
-        assertEquals(Status.NOT_FOUND.code, error.status.code)
+        assertEquals(Status.FAILED_PRECONDITION.code, error.status.code)
     }
 
     @Test
@@ -99,17 +99,17 @@ class KeyPixDeleteTest(
     }
 
     @Test
-    internal fun `nao deve deletar chave quando existente quando ocorrer algum erro no servico de BCB`() {
+    internal fun `nao deve deletar chave existente quando ocorrer algum erro no servico de BCB`() {
         //cenário
         val request = PixKeyDeleteRequest.newBuilder().setPixId(existingKey.pixId).setClientId(existingKey.clientId).build()
         Mockito.`when`(bcbClient.deleteKeyBcb(existingKey.keyValue, BcbDeleteKeyRequest(existingKey.keyValue)))
             .thenReturn(HttpResponse.unprocessableEntity())
         //ação
         val error = assertThrows<StatusRuntimeException> {
-            val response = clientGrpc.delete(request)
+            clientGrpc.delete(request)
         }
         //validação
-        assertEquals(Status.NOT_FOUND.code, error.status.code)
+        assertEquals(Status.FAILED_PRECONDITION.code, error.status.code)
         assertEquals("Não foi possível excluir a chave no Banco Central", error.status.description)
         assertEquals(1, keyPixRepository.count())
     }
