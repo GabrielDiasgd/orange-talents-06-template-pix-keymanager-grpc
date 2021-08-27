@@ -40,7 +40,5 @@ enum class KeyType {
         override fun validator(keyValue: String?) = keyValue.isNullOrBlank()
     };
 
-    constructor()
-
     abstract fun validator(keyValue: String?): Boolean
 }

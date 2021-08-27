@@ -42,6 +42,13 @@ internal class KeyTypeTest {
         }
     }
 
+    @Test
+    internal fun `nao deve ser valido quando phone for nulo ou vazio`() {
+        with(KeyType.PHONE) {
+            assertFalse(validator(null))
+            assertFalse(validator(""))
+        }
+    }
     //email
     @Test
     internal fun `deve ser valido quando email for com formato correto`() {
@@ -54,6 +61,14 @@ internal class KeyTypeTest {
     internal fun `nao deve ser valido quando email for com formato invalido`() {
         with(KeyType.EMAIL) {
             assertFalse(validator("gabriel@"))
+        }
+    }
+
+    @Test
+    internal fun `nao deve ser valido quando email for nulo ou vazio`() {
+        with(KeyType.EMAIL) {
+            assertFalse(validator(null))
+            assertFalse(validator(""))
         }
     }
 

@@ -17,6 +17,7 @@ import io.micronaut.context.annotation.Factory
 import io.micronaut.grpc.annotation.GrpcChannel
 import io.micronaut.grpc.server.GrpcServerChannel
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -95,10 +96,12 @@ internal class KeyPixRegistrationTest(
     @Test
     internal fun `nao deve cadastrar chave com valor incompativel`() {
         //cenário
+        val keyType = KeyTypeRequest.CPF
+        val keyValue = "4471919083977777"
         val request = PixKeyRegistrationRequest.newBuilder()
             .setClientId("c56dfef4-7901-44fb-84e2-a2cefb157890")
-            .setKeyType(KeyTypeRequest.CPF)
-            .setKeyValue("4471919083977777")
+            .setKeyType(keyType)
+            .setKeyValue(keyValue)
             .setAccount(AccountType.CONTA_CORRENTE)
             .build()
         //ação
@@ -108,7 +111,7 @@ internal class KeyPixRegistrationTest(
         //validação
         with(error) {
             assertEquals(Status.INVALID_ARGUMENT.code, status.code)
-            assertEquals("register.newKeyPix: Tipo de chave é incompativel com valor informado", status.description)
+            assertEquals("register.newKeyPix: Tipo de chave ($keyType) é incompativel com valor informado ($keyValue)", status.description)
             assertEquals(0, keyPixRepository.count())
         }
     }
@@ -143,7 +146,7 @@ internal class KeyPixRegistrationTest(
         val keyPix = createKeyPix()
         Mockito.`when`(itauClient.findClient(request.clientId, request.account.name)).thenReturn(HttpResponse.ok(accountResponse))
 
-        Mockito.`when`(bcbClient.registerKeyBcb(BCBRegisterKeyRequest(keyPix))).thenReturn(HttpResponse.badRequest())
+        Mockito.`when`(bcbClient.registerKeyBcb(BCBRegisterKeyRequest(keyPix))).thenThrow(HttpClientResponseException::class.java)
         //ação
         val error = assertThrows<StatusRuntimeException> {
             clientGrpc.register(request)

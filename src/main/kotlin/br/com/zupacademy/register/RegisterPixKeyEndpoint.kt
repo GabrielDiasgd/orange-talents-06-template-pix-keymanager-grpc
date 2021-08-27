@@ -18,6 +18,7 @@ open class RegisterPixKeyEndpoint(@Inject private val service: RegisterPixKeySer
         responseObserver: StreamObserver<PixKeyRegistrationResponse>
     ) {
 
+        println(request)
             val newKeyPix = request.toModel()
             val createdKey = service.register(newKeyPix)
 

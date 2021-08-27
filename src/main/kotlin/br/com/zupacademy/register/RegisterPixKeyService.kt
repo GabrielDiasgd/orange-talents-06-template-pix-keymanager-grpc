@@ -1,20 +1,17 @@
 package br.com.zupacademy.register
 
-import br.com.zupacademy.find.Filter
-import br.com.zupacademy.integration.bcb.*
+import br.com.zupacademy.integration.bcb.BcbClient
 import br.com.zupacademy.integration.bcb.register.BCBRegisterKeyRequest
 import br.com.zupacademy.integration.itau.ItauClient
 import br.com.zupacademy.shared.exceptions.ExistingPixKeyException
-import io.micronaut.http.HttpStatus
 import io.micronaut.validation.Validated
-import java.lang.IllegalStateException
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.transaction.Transactional
 import javax.validation.Valid
 
-@Singleton
 @Validated
+@Singleton
 class RegisterPixKeyService(
     @Inject val keyPixRepository: KeyPixRepository,
     @Inject val itauClient: ItauClient,
@@ -31,10 +28,9 @@ class RegisterPixKeyService(
         response.body() ?: throw IllegalStateException("Conta inexistente")
 
         val keyPix = newKeyPix.toModel(response.body())
-        keyPixRepository.save(keyPix)
+        val save = keyPixRepository.save(keyPix)
 
         val bcbResponse = bcbClient.registerKeyBcb(BCBRegisterKeyRequest(keyPix))
-        if (bcbResponse.status != HttpStatus.CREATED) throw IllegalStateException("Erro na criação da chave no banco central")
 
         val updatedKey = keyPix.updateKey(bcbResponse.body().key)
 

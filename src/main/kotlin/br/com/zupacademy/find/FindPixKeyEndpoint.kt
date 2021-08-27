@@ -7,10 +7,12 @@ import br.com.zupacademy.shared.exceptionHandler.ErrorHandler
 import br.com.zupacademy.shared.toModel
 import com.google.protobuf.Timestamp
 import io.grpc.stub.StreamObserver
+import io.micronaut.validation.validator.Validator
+
 import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.validation.Validator
+
 
 @Singleton
 open class FindPixKeyEndpoint(
@@ -23,7 +25,7 @@ open class FindPixKeyEndpoint(
     @ErrorHandler
     override fun findKey(request: FindPixKeyRequest, responseObserver: StreamObserver<FindPixKeyResponse>?) {
 
-            val filter = request.toModel(validator)
+        val filter = request.toModel(validator)
             val pixKeyDetails = filter.filtrate(keyPixRepository, bcbClient)
             responseObserver?.onNext(
                 FindPixKeyResponse.newBuilder()

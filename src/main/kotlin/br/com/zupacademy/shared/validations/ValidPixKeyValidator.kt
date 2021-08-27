@@ -18,7 +18,6 @@ class ValidPixKeyValidator: ConstraintValidator<ValidPixKey, NewKeyPix> {
        if (value?.keyType == null) {
            return false
        }
-
         return value.keyType.validator(value.keyValue)
     }
 
