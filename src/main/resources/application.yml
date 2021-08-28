@@ -3,12 +3,12 @@ micronaut:
     name: gabriel
 datasources:
   default:
-    url: jdbc:mysql://localhost:3306/pix?useTimezone=true&serverTimezone=UTC
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    password: dias250598
-    schema-generate: CREATE_DROP
-    dialect: MYSQL
+    url: ${DB_URL:`jdbc:postgresql://localhost:5432/pix`}
+    driverClassName: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+
+
 
 jpa.default.properties.hibernate.hbm2ddl.auto: update
 jpa.default.properties.hibernate.show_sql: true
@@ -16,8 +16,8 @@ jpa.default.properties.hibernate.format_sql: true
 
 client:
   http:
-    itau: http://localhost:9091/api/v1/clientes
-    bcb: http://localhost:8082/api/v1/pix/keys
+    itau: ${ITAU_URL:`http://localhost:9091/api/v1/clientes`}
+    bcb: ${BCB_URL:`http://localhost:8082/api/v1/pix/keys`}
 
 
 
