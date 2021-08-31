@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keymanager-grpc-configmap
+data:
+  DB_URI: `jdbc:postgresql://localhost:5432/pix`
+  DB_USER: postgres
+  DB_DIALECT: POSTGRES
+  ITAU_URL: `http://localhost:9091/api/v1/clientes`
+  BCB_URL: `http://localhost:8082/api/v1/pix/keys`
