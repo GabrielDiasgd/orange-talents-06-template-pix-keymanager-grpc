@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gabrieldias-ot6-keymanager-grpc.fullname" . }}
+  labels:
+    {{- include "gabrieldias-ot6-keymanager-grpc.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "gabrieldias-ot6-keymanager-grpc.selectorLabels" . | nindent 4 }}

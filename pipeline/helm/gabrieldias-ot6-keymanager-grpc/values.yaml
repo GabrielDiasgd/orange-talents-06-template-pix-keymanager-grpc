@@ -1,11 +1,11 @@
-# Default values for orange-talents-06-template-pix-keymanager-grpc.
+# Default values for gabrieldias-ot6-keymanager-grpc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: public.ecr.aws/i2c7a5l2/gabrieldias/orange-talents-06-template-pix-keymanager-grpc
+  repository: public.ecr.aws/i2c7a5l2/gabrieldias-ot6-keymanager-grpc
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest

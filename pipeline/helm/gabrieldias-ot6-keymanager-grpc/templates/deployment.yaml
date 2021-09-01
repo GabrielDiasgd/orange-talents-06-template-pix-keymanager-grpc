@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "orange-talents-06-template-pix-keymanager-grpc.fullname" . }}
+  name: {{ include "gabrieldias-ot6-keymanager-grpc.fullname" . }}
   labels:
-    {{- include "orange-talents-06-template-pix-keymanager-grpc.labels" . | nindent 4 }}
+    {{- include "gabrieldias-ot6-keymanager-grpc.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "orange-talents-06-template-pix-keymanager-grpc.selectorLabels" . | nindent 6 }}
+      {{- include "gabrieldias-ot6-keymanager-grpc.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "orange-talents-06-template-pix-keymanager-grpc.selectorLabels" . | nindent 8 }}
+        {{- include "gabrieldias-ot6-keymanager-grpc.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "orange-talents-06-template-pix-keymanager-grpc.serviceAccountName" . }}
+      serviceAccountName: {{ include "gabrieldias-ot6-keymanager-grpc.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -48,9 +48,9 @@ spec:
           resources:
           envFrom:
             - configMapRef:
-                name: orange-talents-06-template-pix-keymanager-grpc-configmap
+                name: gabrieldias-ot6-keymanager-grpc-configmap
             - secretRef:
-                name: orange-talents-06-template-pix-keymanager-grpc-secrets
+                name: gabrieldias-ot6-keymanager-grpc-secret
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
