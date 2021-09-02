@@ -33,6 +33,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: gabrieldias-ot6-keymanager-grpc-configmap
+            - secretRef:
+                name: gabrieldias-ot6-keymanager-grpc-secret
           ports:
             - name: http
               containerPort: 50051
@@ -46,11 +51,6 @@ spec:
               path: /
               port: http
           resources:
-          envFrom:
-            - configMapRef:
-                name: gabrieldias-ot6-keymanager-grpc-configmap
-            - secretRef:
-                name: gabrieldias-ot6-keymanager-grpc-secret
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
