@@ -35,20 +35,20 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: gabrieldias-ot6-keymanager-grpc-configmap
+                name: keymanager-grpc-configmap
             - secretRef:
-                name: gabrieldias-ot6-keymanager-grpc-secret
+                name: keymanager-grpc-secret
           ports:
             - name: http
               containerPort: 50051
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health/liveness
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health/readiness
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
